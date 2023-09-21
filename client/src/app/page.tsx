@@ -116,7 +116,11 @@ export default function Home() {
             <Separator />
 
             <div className="space-y-3">
-              <Label>Temperatura</Label>
+              <Label className="mr-2">Temperatura</Label>
+
+              <span className="bg-[#D3500C] px-2 py-1 rounded-lg">
+                {temperature}
+              </span>
 
               <Slider
                 min={0}

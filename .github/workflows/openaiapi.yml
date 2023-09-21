@@ -1,0 +1,34 @@
+name: OpenAI Completion
+
+on:
+  workflow_dispatch:
+    inputs:
+      prompt:
+        description: "The prompt to generate completions for."
+        required: true
+  workflow_call:
+    inputs:
+      prompt:
+        description: "The prompt to generate completions for."
+        required: true
+        type: string
+
+jobs:
+  openai_completion_job:
+    runs-on: ubuntu-latest
+    name: OpenAI
+    steps:
+      - uses: actions/checkout@v3
+      - uses: ./
+        name: OpenAI Completion
+        id: openai_completion
+        with:
+          prompt: ${{ github.event.inputs.prompt }}
+          max_tokens: 64
+        env:
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+
+      - uses: actions/github-script@v6
+        name: Print the response text
+        with:
+          script: core.notice('${{github.event.inputs.prompt}}' + '\n\n' + JSON.parse(${{ toJSON(steps.openai_completion.outputs.response) }}).choices[0].message.content)

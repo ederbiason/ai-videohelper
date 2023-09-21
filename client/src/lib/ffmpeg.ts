@@ -1,16 +1,17 @@
-import { FFmpeg } from "@ffmpeg/ffmpeg"
+/* eslint-disable prettier/prettier */
+import { FFmpeg } from '@ffmpeg/ffmpeg'
 import { toBlobURL } from '@ffmpeg/util'
 
-let ffmpeg: FFmpeg | null 
+let ffmpeg: FFmpeg | null
 
 export async function getFFmpeg() {
-    if (ffmpeg) {
-        return ffmpeg
-    }
+  if (ffmpeg) {
+    return ffmpeg
+  }
 
-    ffmpeg = new FFmpeg()
+  ffmpeg = new FFmpeg()
 
-    const baseURL = 'https://unpkg.com/@ffmpeg/core@0.12.2/dist/umd'
+  const baseURL = 'https://unpkg.com/@ffmpeg/core@0.12.2/dist/umd'
 
   if (!ffmpeg.loaded) {
     await ffmpeg.load({
